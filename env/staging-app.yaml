@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/biswa2015/argocd-assignment.git
+    targetRevision: HEAD
+    path: /staging
+  destination:
+    server: https://34.69.89.13
+    namespace: staging-cluster-namespace
