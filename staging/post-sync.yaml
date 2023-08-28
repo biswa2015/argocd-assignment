@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-sync-flock-message
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+spec:
+  template:
+    spec:
+      containers:
+      - name: send-message
+        image: curlimages/curl:latest
+        command:
+        - "curl"
+        - "-X"
+        - "POST"
+        - "https://api.flock.com/hooks/sendMessage/2b7057bd-6973-4d6f-9f8c-13470d52c94f"
+        - "-H"
+        - "Content-Type: application/json"
+        - "-d"
+        - '{"text": "Post-sync: STAGING"}'
+      restartPolicy: Never
